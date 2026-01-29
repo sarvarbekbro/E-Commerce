@@ -12,8 +12,15 @@ const hbs = create({
 app.engine ('hbs', hbs.engine)
 app.set ('view engine', 'hbs')
 app.set ( 'views', './views')
+app.use (express.urlencoded ({extended: true}))
+
+
+
+
+
 app.use (Authroutes)
 app.use (Productroutes)
+
 
 const PORT = process.env.PORT || 4100
 app.listen(4100, () => console.log(`Server is running on port: ${PORT}`))
