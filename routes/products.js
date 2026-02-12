@@ -5,6 +5,7 @@ const router = Router()
 router.get ('/', (req, res) => {
   res.render ('index', {
     title: 'Boom Shop | SsS',
+    token: true,
   })
 })
 
