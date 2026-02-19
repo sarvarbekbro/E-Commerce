@@ -30,7 +30,8 @@ router.get('/register', (req, res)=> {
 
 router.get ('/logout', (req, res) => {
   res.clearCookie('token')
-  res.redirect('/')
+  res.redirect('/login')
+
 })
 
 router.post('/login', async (req, res )=> {
@@ -56,7 +57,7 @@ if (!isPassEqual) {
   return
 }
  const token = generateJWTToken(existUser._id)
-res.cookie ('token', token, {httpOnly: true, secure: true})
+res.cookie ('token', token, {httpOnly: true, })
  res.redirect('/')
 
 })
@@ -84,7 +85,7 @@ router.post('/register', async (req, res) => {
 }
  const user = await User.create(userData)
  const token = generateJWTToken(user._id)
-res.cookie ('token', token, {httpOnly: true, secure: true})
+res.cookie ('token', token, {httpOnly: true, })
   res.redirect('/')
 })
 
