@@ -1,15 +1,19 @@
 import express from 'express';
 import { create} from "express-handlebars"
 import mongoose from 'mongoose'
-import varMiddleware from './middleware/var.js'
 import * as dotenv from 'dotenv'
 import flash from 'connect-flash'
 import session from 'express-session'
 import cookieParser  from 'cookie-parser';
 
+import varMiddleware from './middleware/var.js'
+import userMiddleware from './middleware/user.js';
+import hbsHelpers from './utils/index.js'
+
 //Routes
 import Authroutes from './routes/auth.js'
 import Productroutes from './routes/products.js'
+
 dotenv.config()
 
 
@@ -18,6 +22,7 @@ const app = express();
 const hbs = create({
   defaultLayout: 'main',
   extname: 'hbs',
+  helpers: hbsHelpers,
 })
 
 app.engine ('hbs', hbs.engine)
@@ -32,7 +37,7 @@ app.use (cookieParser())
 app.use (session ({secret: 'SsS', resave: false, saveuninitialized: false}))
 app.use (flash())
 app.use (varMiddleware)
-
+app.use (userMiddleware)
 
 
 
