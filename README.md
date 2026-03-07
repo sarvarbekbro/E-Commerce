@@ -24,7 +24,7 @@ Boom Shop is a simple e-commerce web application built with Node.js, Express, Mo
 
 Clone the repository:
 
-git clone https://github.com/yourusername/boom-shop.git
+git clone https://github.com/yourusername/boom-shop.git](https://github.com/sarvarbekbro/E-Commerce.git
 
 Install dependencies:
 
