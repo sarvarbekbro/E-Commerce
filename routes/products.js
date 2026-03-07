@@ -44,6 +44,16 @@ router.get('/products/:id', async (req, res) => {
   })
 })
 
+router.get('/edit-product/:id', async (req, res ) => {
+  const id = req.params.id
+  const product = await Product.findById(id).populate('user').lean()
+ res.render ('edit-product',{
+  product: product,
+  errorEditProdcut:req.flash('errorEditProduct')
+ })
+
+})
+
 
 router.post('/add-products', userMiddleware, async (req, res) => {
   const {title, description, image, price} = req.body
@@ -58,5 +68,25 @@ router.post('/add-products', userMiddleware, async (req, res) => {
 
 })
 
+router.post('/edit-product/:id',  async (req, res) =>{
+  const {title, description, image, price} = req.body
+  const id = req.params.id
 
+if (!title || !description || !image || !price){
+    req.flash('errorEditProduct', 'All fields are required')
+    res.redirect(`/edit-product/${id}`)
+    return
+  }
+
+  const product = await Product.findByIdAndUpdate(id, req.body, {new: true})
+console.log(product);
+
+  res.redirect('/products')
+
+})
+router.post('/delete-product/:id', async (req, res ) => {
+  const id = req.params.id
+  await Product.findByIdAndDelete(id)
+  res.redirect('/')
+})
 export default router
